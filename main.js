@@ -3,7 +3,6 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var escape_html = require('escape-html');
-
 var path = require('path'); 
 
 var port = 8080; 
@@ -28,9 +27,8 @@ app.get('/:id', function (req, res) {
         res.sendStatus(404); 
     }
     else {
-        if(users.indexOf(req.params.id) == -1){
-           users.push(req.params.id);
-        }
+
+        users.push(req.params.id);
         res.sendFile(path.join(__dirname, 'index.html'));
     }
    

@@ -27,7 +27,6 @@ window.onload = function () {
     socket.on('messages loaded', function (data) {
 
         var display_messages = data.messages.map((msg) => {
-
             return (`<div class ="panel well">
                          <h4>${msg.author}</h4>
                          <h5>${msg.text}</h5>
