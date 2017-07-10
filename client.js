@@ -11,7 +11,6 @@ window.onload = function () {
     var btn = document.getElementById('btn'); 
     var message_input = document.getElementById('inp');
 
-
     // загрузить имена пользователей, которые online 
     socket.emit('load users');
     socket.on('users loaded', function (data) {

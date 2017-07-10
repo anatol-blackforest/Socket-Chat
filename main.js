@@ -27,59 +27,59 @@ app.get('/:id', function (req, res) {
         res.sendStatus(404); 
     }
     else {
-
-        users.push(req.params.id);
+        users.push(escape_html(req.params.id));
         res.sendFile(path.join(__dirname, 'index.html'));
     }
    
-})
+});
 
 // установка соединения
 io.on('connection', function (socket) {
-   
-    connections.push(socket);
-    console.log(users)
-    console.log('Connected: %s sockets connected', connections.length);
+    
+        connections.push(socket);
+        console.log(users);
+        console.log('Connected: %s sockets connected', connections.length);
 
-    // окончание соединения 
-    socket.on('disconnect', function (data) {
- 
-        var index = connections.indexOf(socket)
+        // окончание соединения 
+        socket.on('disconnect', function (data) {
+    
+            var index = connections.indexOf(socket)
 
-        // удалить разорванное соединение из списка текущих соединений 
-        var deletedItem = connections.splice(index, 1);
+            // удалить разорванное соединение из списка текущих соединений 
+            var deletedItem = connections.splice(index, 1);
 
-        // удалить пользователя из массива текущих пользователей  
-        users.splice(index, 1);
+            // удалить пользователя из массива текущих пользователей  
+            users.splice(index, 1);
 
-        // обновить список пользователей на клиенте 
-        io.sockets.emit('users loaded', { users: users })
+            // обновить список пользователей на клиенте 
+            io.sockets.emit('users loaded', { users: users })
 
-        console.log('Disconnected: %s sockets connected', connections.length);
-    });
+            console.log('Disconnected: %s sockets connected', connections.length);
+        });
 
-    // обработка сообщения 
-    socket.on('send message', function (data) {
-        // сохранить сообщение
-        messages.push({text: escape_html(data.text), author: escape_html(data.author)});
+        // обработка сообщения 
+        socket.on('send message', function (data) {
+            // сохранить сообщение
+            messages.push({text: escape_html(data.text), author: escape_html(data.author)});
 
-        // сгенерировать событие chat message и отправить его всем доступным подключениям 
-        io.sockets.emit('chat message', {text: escape_html(data.text), author: escape_html(data.author)});
-    });
+            // сгенерировать событие chat message и отправить его всем доступным подключениям 
+            io.sockets.emit('chat message', {text: escape_html(data.text), author: escape_html(data.author)});
+        });
 
-    // загрузить пользователей
-    socket.on('load users', function () {
-        console.log(users)
-        io.sockets.emit('users loaded', { users: users })
-    });
+        // загрузить пользователей
+        socket.on('load users', function () {
+            console.log(users)
+            io.sockets.emit('users loaded', { users: users })
+        });
 
-    // загрузить сообщения
-    socket.on('load messages', function () {
-        socket.emit('messages loaded', { messages: messages })
-    });
+        // загрузить сообщения
+        socket.on('load messages', function () {
+            socket.emit('messages loaded', { messages: messages })
+        });
 
-    // добавить нового пользователя в чат 
-    socket.emit('new user', { name: users[users.length - 1] });
+        // добавить нового пользователя в чат 
+        socket.emit('new user', { name: users[users.length - 1] });
+
 
 }); 
 
