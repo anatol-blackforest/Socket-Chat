@@ -78,6 +78,8 @@ io.on('connection', function (socket) {
             // добавить нового пользователя в чат 
             socket.emit('new user', { name: users[users.length - 1]["name"] });
             
+        }else{
+            socket.emit('nickerror', { error: "Ник уже используется"});
         }
     
         console.log(users);

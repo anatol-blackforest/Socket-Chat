@@ -21,6 +21,10 @@ window.onload = function () {
         users_container.innerHTML = display_users.join(' '); 
     });
 
+    socket.on('nickerror', function (data) {
+        alert(data.error)
+    });
+
     // загрузить сообщения других пользователей (при загрузке страницы)
     socket.emit('load messages');
     socket.on('messages loaded', function (data) {
