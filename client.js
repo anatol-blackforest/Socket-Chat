@@ -1,4 +1,5 @@
-var socket = io.connect('http://94.244.142.112:8080/');
+//здесь адрес чат-сервера
+var socket = io.connect('http://localhost:8080/');
 var user = ''; 
 
 window.onload = function () {
