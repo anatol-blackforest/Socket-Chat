@@ -26,12 +26,11 @@ app.get('/:id', function (req, res) {
         res.sendStatus(404); 
     }
     else {
-        name = escape_html(req.params.id);
+        name = escape_html(req.params.id).substring(0,50);
         res.sendFile(path.join(__dirname, 'index.html'));
     }
 
 });
-
 
 // установка соединения
 io.on('connection', function (socket) {
