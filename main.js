@@ -1,21 +1,29 @@
 // подключение express и socket.io 
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var escape_html = require('escape-html');
-var path = require('path'); 
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const escape_html = require('escape-html');
+const path = require('path'); 
+const port = 8080; 
 
-var port = 8080; 
-var name;
+let name, botMessage;
 
 // массив для хранения текущих подключений 
-var users = [];
+let users = [{id: 12345, name:"Говорун"}];
 // массив для хранения текущих сообщений 
-var messages = []; 
+let messages = []; 
+let botMessages = ["Че молчим? 😁", "Cкучно 😡", "Расскажите анекдот 😤"]; 
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'auth.html')); 
 });
+
+setInterval(() => {
+	// бот-говорун, говорит каждую минуту (60000 мксек)
+    botMessage = botMessages[Math.round(Math.random() * (botMessages.length - 1))];
+    messages.push({text: botMessage, author: users[0].name});
+    io.sockets.emit('chat message', {text: botMessage, author: users[0].name});
+}, 60000);
 
 app.get('/:id', function (req, res) {
 
@@ -72,7 +80,7 @@ io.on('connection', function (socket) {
                 // обновить список пользователей на клиенте 
                 io.sockets.emit('users loaded', { users })
 
-                console.log('Disconnected: %s sockets connected', users.length);
+                console.log('Disconnected: %s users connected', users.length);
             });
 
             // добавить нового пользователя в чат 
@@ -84,7 +92,7 @@ io.on('connection', function (socket) {
     
         console.log(users);
         console.log(socket.id);
-        console.log('Connected: %s sockets connected', users.length);
+        console.log('Connected: %s users connected', users.length);
 
         // загрузить пользователей
         socket.on('load users', function () {
