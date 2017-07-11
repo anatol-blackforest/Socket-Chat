@@ -15,7 +15,7 @@ window.onload = function () {
     socket.emit('load users');
     socket.on('users loaded', function (data) {
         var display_users = data.users.map((username) => {
-            return  `<li>${username}</li>`
+            return  `<li>${username.name}</li>`
         })
 
         users_container.innerHTML = display_users.join(' '); 

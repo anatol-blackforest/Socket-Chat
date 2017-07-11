@@ -6,10 +6,9 @@ var escape_html = require('escape-html');
 var path = require('path'); 
 
 var port = 8080; 
+var name;
 
 // массив для хранения текущих подключений 
-var connections = [];
-// массив для хранения текущих пользователей 
 var users = [];
 // массив для хранения текущих сообщений 
 var messages = []; 
@@ -27,59 +26,75 @@ app.get('/:id', function (req, res) {
         res.sendStatus(404); 
     }
     else {
-        users.push(escape_html(req.params.id));
+        name = escape_html(req.params.id);
         res.sendFile(path.join(__dirname, 'index.html'));
     }
-   
+
 });
+
 
 // установка соединения
 io.on('connection', function (socket) {
+
+        //вставляем уникальное имя
+        let ok = true;
+        users.map(item => {
+            if(item.name == name){
+                ok = false;
+            }
+        });
+
+        if(ok){
+
+            users.push({id: socket.id, name});
+            // обработка сообщения 
+            socket.on('send message', function (data) {
+                // сохранить сообщение
+                messages.push({text: escape_html(data.text), author: escape_html(data.author)});
+
+                // сгенерировать событие chat message и отправить его всем доступным подключениям 
+                io.sockets.emit('chat message', {text: escape_html(data.text), author: escape_html(data.author)});
+            });
+
+            // окончание соединения 
+            socket.on('disconnect', function (data) {
+
+                // удалить разорванное соединение из списка текущих соединений и удалить пользователя из массива текущих пользователей  
+                // тут говнокод, с утра поколупать:
+                let index;
+                users.forEach((item, i) => {
+                    if(item.id == socket.id){
+                        index = i;
+                    }
+                });
+
+                users.splice(index, 1);
+
+                // обновить список пользователей на клиенте 
+                io.sockets.emit('users loaded', { users })
+
+                console.log('Disconnected: %s sockets connected', users.length);
+            });
+
+            // добавить нового пользователя в чат 
+            socket.emit('new user', { name: users[users.length - 1]["name"] });
+            
+        }
     
-        connections.push(socket);
         console.log(users);
-        console.log('Connected: %s sockets connected', connections.length);
-
-        // окончание соединения 
-        socket.on('disconnect', function (data) {
-    
-            var index = connections.indexOf(socket)
-
-            // удалить разорванное соединение из списка текущих соединений 
-            var deletedItem = connections.splice(index, 1);
-
-            // удалить пользователя из массива текущих пользователей  
-            users.splice(index, 1);
-
-            // обновить список пользователей на клиенте 
-            io.sockets.emit('users loaded', { users: users })
-
-            console.log('Disconnected: %s sockets connected', connections.length);
-        });
-
-        // обработка сообщения 
-        socket.on('send message', function (data) {
-            // сохранить сообщение
-            messages.push({text: escape_html(data.text), author: escape_html(data.author)});
-
-            // сгенерировать событие chat message и отправить его всем доступным подключениям 
-            io.sockets.emit('chat message', {text: escape_html(data.text), author: escape_html(data.author)});
-        });
+        console.log(socket.id);
+        console.log('Connected: %s sockets connected', users.length);
 
         // загрузить пользователей
         socket.on('load users', function () {
             console.log(users)
-            io.sockets.emit('users loaded', { users: users })
+            io.sockets.emit('users loaded', { users })
         });
 
         // загрузить сообщения
         socket.on('load messages', function () {
-            socket.emit('messages loaded', { messages: messages })
+            socket.emit('messages loaded', { messages })
         });
-
-        // добавить нового пользователя в чат 
-        socket.emit('new user', { name: users[users.length - 1] });
-
 
 }); 
 
