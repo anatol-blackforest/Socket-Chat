@@ -6,7 +6,7 @@ const escape_html = require('escape-html');
 const path = require('path'); 
 const port = 8080; 
 
-let name, botMessage;
+let name, botMessage, unicalName;
 
 // массив для хранения текущих подключений 
 let users = [{id: 12345, name:"Говорун"}];
@@ -44,14 +44,14 @@ app.get('/:id', function (req, res) {
 io.on('connection', function (socket) {
 
         //вставляем уникальное имя
-        let ok = true;
+        unicalName = true;
         users.map(item => {
             if(item.name == name){
-                ok = false;
+                unicalName = false;
             }
         });
 
-        if(ok){
+        if(unicalName){
 
             users.push({id: socket.id, name});
             // обработка сообщения 
