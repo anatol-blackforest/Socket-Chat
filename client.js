@@ -78,6 +78,7 @@ window.onload = function () {
 
     smiles.addEventListener("click", (e) => {
         message_input.value += ` ${e.target.textContent}`;
+        message_input.focus();
     });
 
 }
