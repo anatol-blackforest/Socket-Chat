@@ -1,0 +1,32 @@
+body {
+    background-color: rgb(212, 219, 226); 
+    overflow-x: hidden; 
+}
+#msg_form {
+    position: absolute;  
+    margin-bottom: 0; 
+    bottom: 0; 
+} 
+h1 {
+    text-align: center; 
+} 
+#users {
+    padding-left: 30px;
+    opacity: 0.8; 
+    position:relative;
+    overflow:hidden;
+    padding-bottom: 20px
+} 
+#users ul {
+        list-style-type: none; 
+}
+#messages {
+    overflow-y: scroll; 
+}
+
+#users #smiles li{
+    float: left;
+    cursor: pointer;
+    padding:5px;
+    font-size:20px;
+}

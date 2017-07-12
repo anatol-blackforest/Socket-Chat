@@ -1,21 +1,22 @@
 //здесь адрес чат-сервера
-var socket = io.connect('http://localhost:8080/');
-var user = ''; 
+const socket = io.connect('http://localhost:8080/');
+let user = ''; 
 
 window.onload = function () {
      
-    var users_container = document.getElementById('userlist'); 
-    var message_container = document.getElementById('messages');
+    const users_container = document.getElementById('userlist'); 
+    const message_container = document.getElementById('messages');
+    const smiles = document.getElementById('smiles');
 
     message_container.style.height = window.innerHeight - 200 + 'px'; 
 
-    var btn = document.getElementById('btn'); 
-    var message_input = document.getElementById('inp');
+    const btn = document.getElementById('btn'); 
+    const message_input = document.getElementById('inp');
 
     // загрузить имена пользователей, которые online 
     socket.emit('load users');
     socket.on('users loaded', function (data) {
-        var display_users = data.users.map((username) => {
+        let display_users = data.users.map((username) => {
             return  `<li>${username.name}</li>`
         })
 
@@ -30,7 +31,7 @@ window.onload = function () {
     socket.emit('load messages');
     socket.on('messages loaded', function (data) {
 
-        var display_messages = data.messages.map((msg) => {
+        let display_messages = data.messages.map((msg) => {
             return (`<div class ="panel well">
                          <h4>${msg.author}</h4>
                          <h5>${msg.text}</h5>
@@ -45,7 +46,7 @@ window.onload = function () {
     // загрузить текущее сообщение
     socket.on('chat message',  function (message) {
         console.log(message)
-        var display_message = `<div class ="panel well">
+        let display_message = `<div class ="panel well">
                                    <h4>${message.author}</h4>
                                    <h5>${message.text}</h5>
                                </div>`
@@ -73,6 +74,10 @@ window.onload = function () {
         if(e.keyCode == 13){
            generateEvent();
         }
+    });
+
+    smiles.addEventListener("click", (e) => {
+        message_input.value += ` ${e.target.textContent}`;
     });
 
 }

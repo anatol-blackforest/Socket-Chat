@@ -27,13 +27,13 @@ setInterval(() => {
 
 app.get('/:id', function (req, res) {
 
-    if (req.params.id == 'client.js') {
+    if (req.params.id == 'style.css') {
+        res.sendFile(path.join(__dirname, 'style.css'));
+    } else if (req.params.id == 'client.js') {
         res.sendFile(path.join(__dirname, 'client.js'));
-    }
-    else if (req.params.id == 'favicon.ico') {
+    } else if (req.params.id == 'favicon.ico') {
         res.sendStatus(404); 
-    }
-    else {
+    } else {
         name = escape_html(req.params.id).substring(0,50);
         res.sendFile(path.join(__dirname, 'index.html'));
     }

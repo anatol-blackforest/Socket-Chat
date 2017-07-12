@@ -5,33 +5,7 @@
     <meta charset="utf-8" />
     <title>Demo Chat</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />  
-    <style> 
-        body {
-            background-color: rgb(212, 219, 226); 
-            overflow-x: hidden; 
-        }
-        #msg_form {
-            position: absolute;  
-            margin-bottom: 0; 
-            bottom: 0; 
-        } 
-        h1 {
-            text-align: center; 
-        } 
-        #users {
-            height: 300px; 
-            padding-left: 30px;
-            opacity: 0.8; 
-
-        } 
-        #users ul {
-             list-style-type: none; 
-        }
-        #messages {
-            overflow-y: scroll; 
-        }
-
-    </style>
+    <link href="style.css" rel="stylesheet" />  
     <script src="/socket.io/socket.io.js"></script>   
     <script src="client.js"></script>
 </head>
@@ -46,11 +20,34 @@
             <div class="col-md-2 panel" id="users">
                 <h3>Users online: </h3>
                 <ul id="userlist"></ul>
+                <h3>Smiles: </h3>
+                <ul id="smiles">                 
+                    <li>😁</li>
+                    <li>😂</li>
+                    <li>😃</li>
+                    <li>😅</li>
+                    <li>😆</li>
+                    <li>😉</li>
+                    <li>😊</li>
+                    <li>😋</li>
+                    <li>😌</li>
+                    <li>😍</li>
+                    <li>😏</li>
+                    <li>😒</li>
+                    <li>😓</li>
+                    <li>😔</li>
+                    <li>😖</li>
+                    <li>😚</li>
+                    <li>😝</li>
+                    <li>😭</li>
+                    <li>😵</li>
+                    <li>😷</li>
+                    <li>😫</li>
+                </ul>
             </div>
             <div class="col-md-10">
                 <div id="messages"></div>
             </div>
- 
         </div>
         <div class="row well" id="msg_form">
             <div class="col-md-12">
