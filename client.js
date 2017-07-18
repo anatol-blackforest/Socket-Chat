@@ -1,4 +1,4 @@
-//здесь адрес чат-сервера
+//здесь адрес вашего чат-сервера в сети
 const socket = io.connect('http://localhost:8080/');
 let user = ''; 
 
