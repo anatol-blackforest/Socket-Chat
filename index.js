@@ -32,4 +32,4 @@ io.on('connection', function (socket) {
 
 server.listen(port, function () {
     console.log(hints[3] + port);
-})
+});
