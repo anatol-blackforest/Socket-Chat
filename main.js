@@ -14,7 +14,7 @@ const config = require('./lib/config');
 let {name, hints, users, messages, botMessages} = config;
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'auth.html')); 
+    res.sendFile(path.join(__dirname, '/views/html/auth.html')); 
 });
 
 // бот-говорун, говорит каждую минуту (60000 мксек)
