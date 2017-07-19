@@ -11,23 +11,23 @@ const render = require('./lib/render');
 const connection = require('./lib/connection');
 const config = require('./lib/config');  
 
-let {name, hints, users, messages, botMessages} = config;
+let {hints} = config;
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '/views/html/auth.html')); 
+    res.sendFile(path.join(__dirname, './views/html/auth.html')); 
 });
 
 // бот-говорун, говорит каждую минуту (60000 мксек)
-bot(io, botMessages, users, messages);
+bot(io);
 
 // окно чата для входящего юзера
 app.get('/:id', function (req, res) {
-    render(req, res, name);
+    render(req, res);
 });
 
 // установка соединения
 io.on('connection', function (socket) {
-    connection(io, socket, name, users, messages, hints);
+    connection(io, socket);
 }); 
 
 server.listen(port, function () {

@@ -1,5 +1,5 @@
 //здесь адрес вашего чат-сервера в сети
-const socket = io.connect('http://localhost:8080/');
+const socket = io.connect('http://94.244.142.112:8080/');
 let user = ''; 
 
 window.onload = function () {
