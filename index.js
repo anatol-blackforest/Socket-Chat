@@ -30,5 +30,5 @@ io.on('connection', socket => {
 }); 
 
 server.listen(port, () => {
-    console.log(`${hints[3]} port`);
+    console.log(`${hints[3]} ${port}`);
 });
