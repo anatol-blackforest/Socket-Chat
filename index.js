@@ -4,16 +4,15 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const escape_html = require('escape-html');
 const path = require('path'); 
-const port = 8080; 
 
 const bot = require('./lib/bot'); 
 const render = require('./lib/render'); 
 const connection = require('./lib/connection');
 const config = require('./lib/config');  
 
-let {hints} = config;
+let {hints, port} = config;
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './views/html/auth.html')); 
 });
 
@@ -21,15 +20,15 @@ app.get('/', function (req, res) {
 bot(io);
 
 // окно чата для входящего юзера
-app.get('/:id', function (req, res) {
+app.get('/:id', (req, res) => {
     render(req, res);
 });
 
 // установка соединения
-io.on('connection', function (socket) {
+io.on('connection', socket => {
     connection(io, socket);
 }); 
 
-server.listen(port, function () {
-    console.log(hints[3] + port);
+server.listen(port, () => {
+    console.log(`${hints[3]} port`);
 });
