@@ -13,7 +13,7 @@ const config = require('./lib/config');
 
 let {hints} = config;
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './views/html/auth.html')); 
 });
 
@@ -21,15 +21,15 @@ app.get('/', function (req, res) {
 bot(io);
 
 // окно чата для входящего юзера
-app.get('/:id', function (req, res) {
+app.get('/:id', (req, res) => {
     render(req, res);
 });
 
 // установка соединения
-io.on('connection', function (socket) {
+io.on('connection', socket => {
     connection(io, socket);
 }); 
 
-server.listen(port, function () {
+server.listen(port, () => {
     console.log(hints[3] + port);
 });
