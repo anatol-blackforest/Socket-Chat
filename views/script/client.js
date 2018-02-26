@@ -1,9 +1,8 @@
 //здесь адрес вашего чат-сервера в сети
-const socket = io.connect('http://localhost:8080/');
+const socket = io.connect('http://94.244.142.112:8080/');
 let user = ''; 
 
 window.onload = function () {
-     
     const users_container = document.getElementById('userlist'); 
     const message_container = document.getElementById('messages');
     const smiles = document.getElementById('smiles');
@@ -13,13 +12,15 @@ window.onload = function () {
     const btn = document.getElementById('btn'); 
     const message_input = document.getElementById('inp');
 
+    //запускаем сокеты после полной загрузки страницы
+    socket.emit('loaded')
+
     // загрузить имена пользователей, которые online 
     socket.emit('load users');
     socket.on('users loaded', function (data) {
         let display_users = data.users.map((username) => {
             return  `<li>${username.name}</li>`
         })
-
         users_container.innerHTML = display_users.join(' '); 
     });
 
