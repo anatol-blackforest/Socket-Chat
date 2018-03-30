@@ -1,5 +1,6 @@
 //здесь адрес вашего чат-сервера в сети
-const socket = io.connect('http://localhost:8080/');
+const socket = io.connect('http://94.244.142.112:8080/');
+
 let user = ''; 
 
 window.onload = function () {
@@ -16,8 +17,8 @@ window.onload = function () {
     socket.emit('loaded')
 
     // загрузить имена пользователей, которые online 
-    socket.emit('load users');
-    socket.on('users loaded', function (data) {
+    socket.emit('loadUsers');
+    socket.on('usersLoaded', function (data) {
         let display_users = data.users.map((username) => {
             return  `<li>${username.name}</li>`
         })
@@ -29,8 +30,8 @@ window.onload = function () {
     });
 
     // загрузить сообщения других пользователей (при загрузке страницы)
-    socket.emit('load messages');
-    socket.on('messages loaded', function (data) {
+    socket.emit('loadMessages');
+    socket.on('messagesLoaded', function (data) {
 
         let display_messages = data.messages.map((msg) => {
             return (`<div class ="panel well">
@@ -45,7 +46,7 @@ window.onload = function () {
     }); 
 
     // загрузить текущее сообщение
-    socket.on('chat message',  function (message) {
+    socket.on('chatMessage',  function (message) {
         console.log(message)
         let display_message = `<div class ="panel well">
                                    <h4>${message.author}</h4>
@@ -57,14 +58,14 @@ window.onload = function () {
     }); 
 
     // получить имя пользователя 
-    socket.on('new user', function (data) {
+    socket.on('newUser', function (data) {
         user = data.name; 
     })
 
     let generateEvent = function () {
         // сгенерировать событие отправки сообщения 
         if(message_input.value){
-            socket.emit('send message', { text: message_input.value, author: user }); 
+            socket.emit('sendMessage', { text: message_input.value, author: user }); 
             message_input.value = "";
         }
     }
