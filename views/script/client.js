@@ -1,5 +1,5 @@
 //здесь вводите реальный адрес вашего чат-сервера в сети
-const socket = io.connect('http://localhost:8080/');
+const socket = io.connect('https://socket-simplechat.herokuapp.com');
 
 let user = ''; 
 
