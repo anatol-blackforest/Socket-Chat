@@ -39,7 +39,7 @@ passport.deserializeUser((user, done) => done(null, user));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback', (req, res) => passport.authenticate('facebook', { successRedirect: '/${req.session}',  failureRedirect: '/' }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/',  failureRedirect: '/' }));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'html', 'auth.html')));
 
