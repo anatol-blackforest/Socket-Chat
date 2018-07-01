@@ -48,6 +48,11 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRe
 
 app.get('/', (req, res) => res.render('auth', {user: req.user}));
 
+app.get('/logout', (req, res) => {
+    req.session.destroy()
+    res.redirect("/")
+});
+
 // бот-говорун, говорит каждую минуту (60000 мксек)
 bot(io);
 
