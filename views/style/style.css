@@ -36,3 +36,9 @@ h1 {
     top: 10px;
     right: 20px
 }
+
+.wrap {
+    width: 500px;
+    display: inline-block;
+    margin-top: 50px;
+}
