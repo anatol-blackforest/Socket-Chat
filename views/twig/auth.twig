@@ -57,7 +57,7 @@
                 <h1>Сокетчат</h1>
                 <div class="fb">
                     {% if user %}
-                        <h2>Добро пожаловать, {{user.displayName}} </h2>
+                        <h3>Добро пожаловать, {{user.displayName}} </h3>
                         <p><a class="btn btn-lg btn-primary" href="/logout">Выйти</a></p>
                     {% else %}
                         <p><a class="btn btn-lg btn-primary" href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a></p>
