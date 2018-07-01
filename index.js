@@ -21,10 +21,11 @@ app.set('view engine', 'twig');
 
 app.use(express.static(path.join(__dirname, 'views', 'script')))
 app.use(express.static(path.join(__dirname, 'views', 'style')))
-app.use(session({keys: ['betelgeuse']}));
+app.use(session({keys: ['chat']}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+//facebook-авторизация
 passport.use(new FacebookStrategy({
     clientID,
     clientSecret,
