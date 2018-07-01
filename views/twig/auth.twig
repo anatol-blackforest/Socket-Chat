@@ -58,8 +58,8 @@
                     <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Login with Facebook</a>
                 </div>
                 <div class="input-group">
-                    User: {{user.displayName}} {{user.name}}
-                    <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." />
+                    Добро пожаловать, {{user.displayName}} 
+                    <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." value={{user.displayName}} disabled />
                     <span class="input-group-btn">
                         <button class="btn btn-lg btn-warning">Начать чат</button>
                     </span>
