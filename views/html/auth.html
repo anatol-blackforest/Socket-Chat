@@ -3,27 +3,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <title>Enter Chat!</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> 
     <script src="/socket.io/socket.io.js"></script>   
-    <script>
-            window.fbAsyncInit = function() {
-              FB.init({
-                appId      : '464037280713366',
-                xfbml      : true,
-                version    : 'v3.0'
-              });
-              FB.AppEvents.logPageView();
-            };
-          
-            (function(d, s, id){
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) {return;}
-               js = d.createElement(s); js.id = id;
-               js.src = "https://connect.facebook.net/en_US/sdk.js";
-               fjs.parentNode.insertBefore(js, fjs);
-             }(document, 'script', 'facebook-jssdk'));
-          </script>
-    <title>Enter Chat!</title>
     <style>
         body {
             overflow: hidden;
@@ -66,22 +48,40 @@
                 }
             });
         }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '464037280713366',
+            xfbml      : true,
+            version    : 'v3.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+        
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
     </script>
 </head>
 <body>
     <div class="row">
         <div class="col-md-12">
-                <div class="wrap">
-                    <div>
-                        <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Login with Facebook</a>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-lg btn-warning">Начать чат</button>
-                        </span>
-                    </div>
+            <div class="wrap">
+                <div>
+                    <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Login with Facebook</a>
                 </div>
+                <div class="input-group">
+                    <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-warning">Начать чат</button>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </body>
