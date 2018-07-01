@@ -26,11 +26,11 @@ passport.use(new FacebookStrategy({
     callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-      if(profile){
+    if(profile){
         done(null, profile);
-      }else{
-        done(new Error("Acess denied!")); 
-      }
+    }else{
+        done(new Error("Access denied!")); 
+    }
   }
 ));
 
@@ -39,7 +39,7 @@ passport.deserializeUser((user, done) => done(null, user));
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get('/auth/facebook/callback',  passport.authenticate('facebook', { successRedirect: '/',  failureRedirect: '/' }));
+app.get('/auth/facebook/callback', (req, res) => passport.authenticate('facebook', { successRedirect: '/${req.session}',  failureRedirect: '/' }));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'html', 'auth.html')));
 
@@ -54,10 +54,6 @@ app.get('/:id', (req, res) => {
 });
 
 // установка соединения
-io.on('connection', socket => {
-    connection(io, socket);
-}); 
+io.on('connection', socket => connection(io, socket)); 
 
-server.listen(port, () => {
-    console.log(`${hints[3]} ${port}`);
-});
+server.listen(port, () => console.log(`${hints[3]} ${port}`));
