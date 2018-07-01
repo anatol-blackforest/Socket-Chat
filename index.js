@@ -16,7 +16,7 @@ const config = require('./lib/config');
 let {hints, port, name, clientID, clientSecret, callbackURL} = config;
 
 app.set("twig options", {strict_variables: false});
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views', 'twig'));
 app.set('view engine', 'twig');
 
 app.use(express.static(path.join(__dirname, 'views', 'script')))
