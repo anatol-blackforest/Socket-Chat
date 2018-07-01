@@ -1,78 +1,75 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Enter Chat!</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> 
-    <script src="/socket.io/socket.io.js"></script>   
-    <style>
-        body {
-            overflow: hidden;
-            background-color: rgb(212, 219, 226);
-        }
-
-        #username {
-            display: inline-block;
-        }
-
-        .col-md-12 {
-            text-align: center; 
-        } 
-        .wrap { 
-           width: 500px; 
-           display: inline-block; 
-           margin-top: 50px;  
-        }
-    </style> 
-    <script>
-        window.onload = function () {
-            let btn = document.getElementsByTagName('button')[0]; 
-            let inp = document.getElementsByTagName('input')[0]; 
-            let generateEvent = function () {
-                // сгенерировать событие отправки сообщения 
-                if (inp.value == '') {
-                    alert ('invalid username! try again!'); 
-                    return; 
+    <head>
+        <meta charset="utf-8" />
+        <title>Enter Chat!</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" /> 
+        <script src="/socket.io/socket.io.js"></script>   
+        <style>
+            body {
+                overflow: hidden;
+                background-color: rgb(212, 219, 226);
+            }
+            #username {
+                display: inline-block;
+            }
+            .col-md-12 {
+                text-align: center; 
+            } 
+            .wrap { 
+                width: 500px; 
+                display: inline-block; 
+                margin-top: 50px;  
+            }
+        </style> 
+        <script>
+            window.onload = function () {
+                let btn = document.getElementsByTagName('button')[0]; 
+                let inp = document.getElementsByTagName('input')[0]; 
+                let generateEvent = function () {
+                    // сгенерировать событие отправки сообщения 
+                    if (inp.value == '') {
+                        alert ('invalid username! try again!'); 
+                        return; 
+                    }
+                    // перенаправление на страницу чата 
+                    window.location.href = '/' + inp.value; 
                 }
-                // перенаправление на страницу чата 
-                window.location.href = '/' + inp.value; 
-            }
-            btn.onclick = function () { 
-                generateEvent();
-            }
-            btn.addEventListener("click", generateEvent);
-            inp.addEventListener("keypress", (e) => {
-                if(e.keyCode == 13){
+                btn.onclick = function () { 
                     generateEvent();
                 }
-            });
-        }
-    </script>
-</head>
-<body>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="wrap">
-                <h1>Сокетчат</h1>
-                <div class="fb">
-                    {% if user %}
-                        <h3>Добро пожаловать, {{user.displayName}} </h3>
-                        <p><a class="btn btn-lg btn-primary" href="/logout">Выйти</a></p>
-                    {% else %}
-                        <p><a class="btn btn-lg btn-primary" href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a></p>
-                     {% endif %}
-                </div>
-                {% if user %}
-                    <div class="input-group">
-                        <input type="text" class="input-lg form-control" id="username"  value="{{user.displayName}}" placeholder="Ник..."  />
-                        <span class="input-group-btn">
-                            <button class="btn btn-lg btn-warning">Начать чат</button>
-                        </span>
+                btn.addEventListener("click", generateEvent);
+                inp.addEventListener("keypress", (e) => {
+                    if(e.keyCode == 13){
+                        generateEvent();
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrap">
+                    <h1>Сокетчат</h1>
+                    <div class="fb">
+                        {% if user %}
+                            <h3>Добро пожаловать, {{user.displayName}} </h3>
+                            <p><a class="btn btn-lg btn-primary" href="/logout">Выйти</a></p>
+                        {% else %}
+                            <p><a class="btn btn-lg btn-primary" href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a></p>
+                        {% endif %}
                     </div>
-                {% endif %}
+                    {% if user %}
+                        <div class="input-group">
+                            <input type="text" class="input-lg form-control" id="username"  value="{{user.displayName}}" placeholder="Ник..."  />
+                            <span class="input-group-btn">
+                                <button class="btn btn-lg btn-warning">Начать чат</button>
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
