@@ -42,11 +42,13 @@ passport.use(new FacebookStrategy({
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
+app.get('/', (req, res) => res.render('auth', {user: req.user}));
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/',  failureRedirect: '/' }));
 
-app.get('/', (req, res) => res.render('auth', {user: req.user}));
+app.get('/exit', (req, res) => res.redirect("/"));
 
 app.get('/logout', (req, res) => {
     req.session = null
