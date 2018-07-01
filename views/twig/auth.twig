@@ -27,6 +27,9 @@
     </style> 
     <script>
         window.onload = function () {
+       
+            alert({{user}})
+     
             let btn = document.getElementsByTagName('button')[0]; 
             let inp = document.getElementsByTagName('input')[0]; 
             let generateEvent = function () {
@@ -58,9 +61,6 @@
                     <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Login with Facebook</a>
                 </div>
                 <div class="input-group">
-                <script>
-                alert(user)
-                </script>
                     User: {{user}}
                     <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." />
                     <span class="input-group-btn">
