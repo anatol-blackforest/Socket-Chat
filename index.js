@@ -46,7 +46,7 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/',  failureRedirect: '/' }));
 
-app.get('/', (req, res) => res.render('auth', {user: req.user}));
+app.get('/', (req, res) => res.render('auth', {user: JSON.stringify(req.user)}));
 
 // бот-говорун, говорит каждую минуту (60000 мксек)
 bot(io);
