@@ -49,7 +49,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRe
 app.get('/', (req, res) => res.render('auth', {user: req.user}));
 
 app.get('/logout', (req, res) => {
-    req.session.destroy()
+    req.session = null
     res.redirect("/")
 });
 
