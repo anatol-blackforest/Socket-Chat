@@ -55,11 +55,12 @@
         <div class="col-md-12">
             <div class="wrap">
                 <div>
+                    
                     {% if user %}
-                        <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a>
-                    {% else %}
                         Добро пожаловать, {{user.displayName}} <br />
                         <a href="/logout">Выйти</a>
+                    {% else %}
+                        <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a>
                      {% endif %}
                 </div>
                 <div class="input-group">
