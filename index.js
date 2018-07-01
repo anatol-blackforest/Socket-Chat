@@ -15,7 +15,8 @@ const config = require('./lib/config');
 
 let {hints, port, name, clientID, clientSecret, callbackURL} = config;
 
-app.use(express.static(path.join(__dirname, 'views')))
+app.use(express.static(path.join(__dirname, 'views', 'script')))
+app.use(express.static(path.join(__dirname, 'views', 'style')))
 app.use(session({keys: ['betelgeuse']}));
 app.use(passport.initialize());
 app.use(passport.session());
