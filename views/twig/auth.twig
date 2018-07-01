@@ -57,9 +57,9 @@
                 <div class="fb">
                     {% if user %}
                         Добро пожаловать, {{user.displayName}} <br />
-                        <a btn btn-lg btn-primary href="/logout">Выйти</a>
+                        <a class="btn btn-lg btn-primary" href="/logout">Выйти</a>
                     {% else %}
-                        <a btn btn-lg btn-primary href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a>
+                        <a class="btn btn-lg btn-primary" href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a>
                      {% endif %}
                 </div>
                 <div class="input-group">
