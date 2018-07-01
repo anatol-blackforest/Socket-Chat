@@ -54,17 +54,16 @@
     <div class="row">
         <div class="col-md-12">
             <div class="wrap">
-                <div>
-                    
+                <div class="fb">
                     {% if user %}
                         Добро пожаловать, {{user.displayName}} <br />
-                        <a href="/logout">Выйти</a>
+                        <a btn btn-lg btn-primary href="/logout">Выйти</a>
                     {% else %}
-                        <a href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a>
+                        <a btn btn-lg btn-primary href="https://socket-simplechat.herokuapp.com/auth/facebook">Войти через Facebook</a>
                      {% endif %}
                 </div>
                 <div class="input-group">
-                    <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." disabled value={{user.displayName}}  />
+                    <input type="text" class="input-lg form-control" id="username" placeholder="Ник..." disabled {% if user %}value={{user.displayName}}{% endif %}  />
                     <span class="input-group-btn">
                         <button class="btn btn-lg btn-warning">Начать чат</button>
                     </span>
