@@ -1,5 +1,5 @@
 # Socket-Chat
-Simple chat (NodeJS + Express + Socket.IO) с региатрацией через FB
+Simple chat (NodeJS + Express + Socket.IO) с региcтрацией через FB
 
 Устанавливаем, прописываем адрес вашего сервера во views/script/client.js - и общаемся)
 
